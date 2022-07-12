@@ -108,31 +108,44 @@ namespace Compiler.Tokenization
             {
                 // Reading an identifier
                 
-                // counter to count the number of upper case letters
-                int c = 0;
-                int countDigit = 0;
+                int upperCase = 0; // number of upper case in the token
+                int underScore = 0; // number of underscores in the token
+                int lowerOrDigitAfterUnderscore = 0; // number of lower or digit after last underscore
                 
                 // is the first letter an <upper> ?
                 if (char.IsUpper(Reader.Current))
-                    c++;
+                    upperCase++;
                 
                 TakeIt();
                 
-                while (char.IsLetterOrDigit(Reader.Current) ^ Reader.Current == '_')
+                while (char.IsLetterOrDigit(Reader.Current))
                 {
                     if (char.IsLetter(Reader.Current) & char.IsUpper(Reader.Current))
                     {
-                        c++; // uppercase <upper> found
+                        upperCase++; // uppercase <upper> found
                     }
                     TakeIt();
                 }
+
+                while (Reader.Current == '_')
+                {
+                    TakeIt();
+                    underScore++;
+                }
+
+                while (char.IsLetterOrDigit(Reader.Current))
+                {
+                    TakeIt();
+                    lowerOrDigitAfterUnderscore++;
+                }
+                
+                //more than one underscore? ^ any lower or digit after last underscore? ^ any upper?
+                if (underScore > 1 ^ lowerOrDigitAfterUnderscore > 0 ^ upperCase > 0)
+                    return TokenType.Error;
+                
                 // is it a keyword ?
                 if (TokenTypes.IsKeyword(TokenSpelling))
                     return TokenTypes.GetTokenForKeyword(TokenSpelling);
-                
-                // contains an <upper> ?
-                if (c > 0)
-                    return TokenType.Error;
 
                 // should be an identifier
                 return TokenType.Identifier;
