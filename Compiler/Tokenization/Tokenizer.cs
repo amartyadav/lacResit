@@ -118,7 +118,7 @@ namespace Compiler.Tokenization
                 
                 TakeIt();
                 
-                while (char.IsLetterOrDigit(Reader.Current))
+                while (char.IsLetterOrDigit(Reader.Current) ^ Reader.Current == '_')
                 {
                     if (char.IsLetter(Reader.Current) & char.IsUpper(Reader.Current))
                     {
@@ -136,6 +136,13 @@ namespace Compiler.Tokenization
 
                 // should be an identifier
                 return TokenType.Identifier;
+            }
+            else if (Reader.Current == '_')
+            {
+                TakeIt();
+                while(char.IsLetterOrDigit(Reader.Current))
+                    TakeIt();
+                return TokenType.Error;
             }
             else if (char.IsDigit(Reader.Current))
             {
