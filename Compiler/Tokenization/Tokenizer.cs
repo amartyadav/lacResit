@@ -207,13 +207,13 @@ namespace Compiler.Tokenization
                 TakeIt();
                 return TokenType.Is;
             }
-            else if (Reader.Current == '{')
+            else if (Reader.Current == '{') // added as it '{' will be a token instead of Begin
             {
                 // Read a {
                 TakeIt();
                 return TokenType.LeftBraces;
             }
-            else if (Reader.Current == '}')
+            else if (Reader.Current == '}') // added as it '}' will be a token instead of End
             {
                 // Read a }
                 TakeIt();
