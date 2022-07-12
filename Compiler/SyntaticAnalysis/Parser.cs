@@ -121,7 +121,7 @@ namespace Compiler.SyntacticAnalysis
             {
                 case Identifier:
                     return ParseAssignmentOrCallCommand();
-                case Begin:
+                case LeftBraces: // changed from Begin
                     return ParseBeginCommand();
                 case Let:
                     return ParseLetCommand();
@@ -229,9 +229,9 @@ namespace Compiler.SyntacticAnalysis
         private ICommandNode ParseBeginCommand()
         {
             Debugger.Write("Parsing Begin Command");
-            Accept(LeftBraces);
+            Accept(LeftBraces); // changed from Accept Begin
             ICommandNode command = ParseCommand();
-            Accept(RightBraces);
+            Accept(RightBraces); // changed from Accept End
             return command;
         }
 
