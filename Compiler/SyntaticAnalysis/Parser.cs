@@ -229,9 +229,9 @@ namespace Compiler.SyntacticAnalysis
         private ICommandNode ParseBeginCommand()
         {
             Debugger.Write("Parsing Begin Command");
-            Accept(Begin);
+            Accept(LeftBraces);
             ICommandNode command = ParseCommand();
-            Accept(End);
+            Accept(RightBraces);
             return command;
         }
 
