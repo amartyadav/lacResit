@@ -20,7 +20,7 @@ namespace Compiler.Tokenization
 
         // punctuation - terminals (Becomes is for assignment (:=) , Is is for constants (~))
         // Leaving 'Becomes' as it is although the keyword is no longer used in 22s. := will be called 'Becomes' for 22s as well since they do the same thing
-        Colon, Semicolon, Becomes, Is, LeftBracket, RightBracket,
+        Colon, Semicolon, Becomes, Is, LeftBracket, RightBracket, LeftBraces, RightBraces,
 
         // special tokens
         EndOfText, Error

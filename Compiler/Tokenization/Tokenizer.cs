@@ -207,6 +207,18 @@ namespace Compiler.Tokenization
                 TakeIt();
                 return TokenType.Is;
             }
+            else if (Reader.Current == '{')
+            {
+                // Read a {
+                TakeIt();
+                return TokenType.LeftBraces;
+            }
+            else if (Reader.Current == '}')
+            {
+                // Read a }
+                TakeIt();
+                return TokenType.RightBraces;
+            }
             else if (Reader.Current == '(')
             {
                 // Read a (
