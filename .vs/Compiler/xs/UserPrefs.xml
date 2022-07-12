@@ -1,0 +1,31 @@
+﻿<Properties StartupConfiguration="{FBA87512-F6A5-4B7F-89BB-2C2694C2490D}|Default">
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Compiler/Properties/launchSettings.json">
+    <Files>
+      <File FileName="Compiler/Properties/launchSettings.json" Line="9" Column="2" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Compiler" expanded="True">
+            <Node name="Compiler" expanded="True" selected="True">
+              <Node name="Properties" expanded="True" />
+              <Node name="SemanticAnalysis" expanded="True" />
+              <Node name="SyntaticAnalysis" expanded="True" />
+              <Node name="Tokenization" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Compiler PreferredExecutionTarget="MonoDevelop.Default" />
+</Properties>

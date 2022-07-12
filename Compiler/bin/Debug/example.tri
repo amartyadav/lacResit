@@ -1,0 +1,17 @@
+!this is an example program
+let
+	const MAX ~ 10;
+	var n: Integer
+in
+	begin
+		getint(var n);
+		if n > 0 then
+			if n < MAX then
+				while n > 0 do
+					begin
+						putint(n); puteol();
+						n := n-1
+					end
+			else
+		else
+	end
