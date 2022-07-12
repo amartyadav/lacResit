@@ -106,6 +106,8 @@ namespace Compiler.Tokenization
             TokenSpelling.Clear();
             if (char.IsLetter(Reader.Current)) // changing the condition to only include lowercase letters
             {
+                // Reading an identifier
+                
                 // counter to count the number of upper case letters
                 int c = 0;
                 int countDigit = 0;
@@ -113,8 +115,7 @@ namespace Compiler.Tokenization
                 // is the first letter an <upper> ?
                 if (char.IsUpper(Reader.Current))
                     c++;
-
-                // Reading an identifier
+                
                 TakeIt();
                 
                 while (char.IsLetterOrDigit(Reader.Current))
