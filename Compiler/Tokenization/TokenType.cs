@@ -15,9 +15,11 @@ namespace Compiler.Tokenization
         IntLiteral, Identifier, Operator, CharLiteral, 
 
         // reserved words - terminals
-        Begin, Const, Do, Else, End, If, In, Let, Then, Var, While,
+        // (Added Pass, Endif, Either, Or) (Removed Begin, End)
+        Const, Do, Else, If, In, Let, Then, Var, While, Pass, Endif, Either, Or,
 
         // punctuation - terminals (Becomes is for assignment (:=) , Is is for constants (~))
+        // Leaving 'Becomes' as it is although the keyword is no longer used in 22s. := will be called 'Becomes' for 22s as well since they do the same thing
         Colon, Semicolon, Becomes, Is, LeftBracket, RightBracket,
 
         // special tokens
@@ -34,17 +36,23 @@ namespace Compiler.Tokenization
         /// </summary>
         public static ImmutableDictionary<string, TokenType> Keywords { get; } = new Dictionary<string, TokenType>()
         {
-            { "begin", Begin },
+            // { "begin", Begin }, // removed
             { "const", Const },
             { "do", Do },
             { "else", Else },
-            { "end", End },
+            // { "end", End }, // removed
             { "if", If },
             { "in", In },
             { "let", Let },
             { "then", Then },
             { "var", Var },
             { "while", While },
+            { "pass", Pass}, // added
+            { "endif", Endif}, //added 
+            { "either", Either}, //added
+            { "or", Or}, //added
+            
+            
         }.ToImmutableDictionary();
 
         /// <summary>

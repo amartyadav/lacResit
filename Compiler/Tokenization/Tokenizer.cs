@@ -60,7 +60,7 @@ namespace Compiler.Tokenization
         /// <returns>True if and only if there is another token in the file</returns>
         private Token GetNextToken()
         {
-            // Skip forward over any white spcae and comments
+            // Skip forward over any white space and comments
             SkipSeparators();
 
             // Remember the starting position of the token
@@ -104,23 +104,53 @@ namespace Compiler.Tokenization
         private TokenType ScanToken()
         {
             TokenSpelling.Clear();
-            if (char.IsLetter(Reader.Current))
+            if (char.IsLetter(Reader.Current)) // changing the condition to only include lowercase letters
             {
+                // counter to count the number of upper case letters
+                int c = 0;
+                int countDigit = 0;
+                
+                // is the first letter an <upper> ?
+                if (char.IsUpper(Reader.Current))
+                    c++;
+
                 // Reading an identifier
                 TakeIt();
+                
                 while (char.IsLetterOrDigit(Reader.Current))
+                {
+                    if (char.IsLetter(Reader.Current) & char.IsUpper(Reader.Current))
+                    {
+                        c++; // uppercase <upper> found
+                    }
                     TakeIt();
+                }
+                // is it a keyword ?
                 if (TokenTypes.IsKeyword(TokenSpelling))
                     return TokenTypes.GetTokenForKeyword(TokenSpelling);
-                else
-                    return TokenType.Identifier;
+                
+                // contains an <upper> ?
+                if (c > 0)
+                    return TokenType.Error;
+
+                // should be an identifier
+                return TokenType.Identifier;
             }
             else if (char.IsDigit(Reader.Current))
             {
                 // Reading an integer
+                int c = 0;
                 TakeIt();
-                while (char.IsDigit(Reader.Current))
+
+                while (char.IsLetterOrDigit(Reader.Current))
+                {
+                    if (char.IsLetter(Reader.Current))
+                        c++;
                     TakeIt();
+                }
+                   
+                if (c > 0)
+                    return TokenType.Error;
                 return TokenType.IntLiteral;
             }
             else if (IsOperator(Reader.Current))
