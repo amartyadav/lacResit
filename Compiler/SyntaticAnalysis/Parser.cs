@@ -129,9 +129,31 @@ namespace Compiler.SyntacticAnalysis
                     return ParseIfCommand();
                 case While:
                     return ParseWhileCommand();
+                case IfEither:
+                    return ParseIfEitherCommand();
                 default:
                     return ParseSkipCommand();
             }
+        }
+        
+        /// <summary>
+        /// Parses a IfEither command
+        /// </summary>
+        /// <returns>An abstract syntax tree representing the IfEither command</returns>
+        private ICommandNode ParseIfEitherCommand() //
+        {
+            Debugger.Write("Parsing IfEither Command");
+            Position startPosition = CurrentToken.Position;
+            Accept(IfEither);
+            IExpressionNode ifEitherExpression = ParseExpression();
+            Accept(Or);
+            IExpressionNode orExpression = ParseExpression();
+            Accept(Then);
+            ICommandNode thenCommand = ParseSingleCommand();
+            Accept(Else);
+            ICommandNode elseCommand = ParseSingleCommand();
+            Accept(Endif);
+            return new IfEitherCommandNode(ifEitherExpression, orExpression, thenCommand, elseCommand, startPosition);
         }
 
         /// <summary>
