@@ -2,7 +2,7 @@
   "profiles": {
     "Compiler": {
       "commandName": "Project",
-      "commandLineArgs": "example_error1.tri example_error1.tam example_error1.txt",
+      "commandLineArgs": "example_chars.tri example_chars.tam example_chars.txt",
       "workingDirectory": "../"
     }
   }

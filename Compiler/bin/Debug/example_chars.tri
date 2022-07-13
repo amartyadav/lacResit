@@ -1,6 +1,6 @@
 !this is an example program
 let
-	const MAX ~ 10;
+	const max ~ 10;
 	var n: Integer
 in
 	begin
@@ -8,7 +8,7 @@ in
 		put('n'); put('u'); put('m'); put('b'); put('e'); put('r'); put(':');
 		getint(var n);
 		if n > 0 then
-			if n < MAX then
+			if n < max then
 				while n > 0 do
 					begin
 						putint(n); puteol();
