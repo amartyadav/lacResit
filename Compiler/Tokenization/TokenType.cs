@@ -16,7 +16,7 @@ namespace Compiler.Tokenization
 
         // reserved words - terminals
         // (Added Pass, Endif, Either, Or) (Removed Begin, End)
-        Const, Do, Else, If, In, Let, Then, Var, While, Pass, Endif, Either, Or,
+        Const, Do, Else, If, In, Let, Then, Var, While, Pass, Endif, IfEither, Or,
 
         // punctuation - terminals (Becomes is for assignment (:=) , Is is for constants (~))
         // Leaving 'Becomes' as it is although the keyword is no longer used in 22s. := will be called 'Becomes' for 22s as well since they do the same thing
@@ -50,7 +50,7 @@ namespace Compiler.Tokenization
             { "while", While },
             { "pass", Pass}, // added
             { "endif", Endif}, //added 
-            { "either", Either}, //added
+            { "either", IfEither}, //added
             { "or", Or}, //added
             
             
