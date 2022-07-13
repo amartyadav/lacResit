@@ -49,11 +49,11 @@ namespace Compiler.SemanticAnalysis
             }.ToImmutableDictionary();
         }
 
-        public static SimpleTypeDeclarationNode IntegerType { get; } = new SimpleTypeDeclarationNode("Integer", INTEGER);
-        public static SimpleTypeDeclarationNode CharType { get; } = new SimpleTypeDeclarationNode("Char", CHARACTER);
-        public static SimpleTypeDeclarationNode BooleanType { get; } = new SimpleTypeDeclarationNode("Boolean", BOOLEAN);
-        public static SimpleTypeDeclarationNode AnyType { get; } = new SimpleTypeDeclarationNode("Any");
-        public static SimpleTypeDeclarationNode VoidType { get; } = new SimpleTypeDeclarationNode("Void");
+        public static SimpleTypeDeclarationNode IntegerType { get; } = new SimpleTypeDeclarationNode("integer", INTEGER);
+        public static SimpleTypeDeclarationNode CharType { get; } = new SimpleTypeDeclarationNode("char", CHARACTER);
+        public static SimpleTypeDeclarationNode BooleanType { get; } = new SimpleTypeDeclarationNode("boolean", BOOLEAN);
+        public static SimpleTypeDeclarationNode AnyType { get; } = new SimpleTypeDeclarationNode("any");
+        public static SimpleTypeDeclarationNode VoidType { get; } = new SimpleTypeDeclarationNode("void");
 
         public static BuiltInConstDeclarationNode True { get; } = new BuiltInConstDeclarationNode("true", BooleanType);
         public static BuiltInConstDeclarationNode False { get; } = new BuiltInConstDeclarationNode("false", BooleanType);
