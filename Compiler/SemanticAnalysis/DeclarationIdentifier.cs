@@ -118,6 +118,19 @@ namespace Compiler.SemanticAnalysis
             PerformIdentification(ifCommand.ThenCommand);
             PerformIdentification(ifCommand.ElseCommand);
         }
+        
+        /// <summary>
+        /// Carries out identification on an IfEither command node
+        /// </summary>
+        /// <param name="ifEitherCommand">The node to perform identification on</param>
+        // this is added to support the new IfEither command
+        private void PerformIdentificationOnIfEitherCommand(IfEitherCommandNode ifEitherCommand)
+        {
+            PerformIdentification(ifEitherCommand.IfEitherExpression);
+            PerformIdentification(ifEitherCommand.OrExpression);
+            PerformIdentification(ifEitherCommand.ThenCommand);
+            PerformIdentification(ifEitherCommand.ElseCommand);
+        }
 
         /// <summary>
         /// Carries out identification on a let command node
