@@ -2,8 +2,8 @@ namespace Compiler.Nodes
 {
     /// <summary>
     /// A node corresponding to an ifeither command
-    /// </summary>
-    public class IfEitherCommandNode : ICommandNode
+    /// </summary>P
+    public class IfEitherCommandNode : ICommandNode // adding this file to support ParseIfEitherCommand() in Parser.cs
     {
         /// <summary>
         /// The IfEither condition expression

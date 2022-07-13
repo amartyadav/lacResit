@@ -130,7 +130,7 @@ namespace Compiler.SyntacticAnalysis
                 case While:
                     return ParseWhileCommand();
                 case IfEither:
-                    return ParseIfEitherCommand();
+                    return ParseIfEitherCommand(); // added
                 default:
                     return ParseSkipCommand();
             }
@@ -140,7 +140,7 @@ namespace Compiler.SyntacticAnalysis
         /// Parses a IfEither command
         /// </summary>
         /// <returns>An abstract syntax tree representing the IfEither command</returns>
-        private ICommandNode ParseIfEitherCommand() //
+        private ICommandNode ParseIfEitherCommand() // added
         {
             Debugger.Write("Parsing IfEither Command");
             Position startPosition = CurrentToken.Position;
