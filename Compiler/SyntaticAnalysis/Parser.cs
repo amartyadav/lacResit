@@ -194,7 +194,7 @@ namespace Compiler.SyntacticAnalysis
         /// Parses an if command
         /// </summary>
         /// <returns>An abstract syntax tree representing the if command</returns>
-        private ICommandNode ParseIfCommand()
+        private ICommandNode ParseIfCommand() // modified by adding Accept(endif)
         {
             Debugger.Write("Parsing If Command");
             Position startPosition = CurrentToken.Position;
@@ -204,6 +204,7 @@ namespace Compiler.SyntacticAnalysis
             ICommandNode thenCommand = ParseSingleCommand();
             Accept(Else);
             ICommandNode elseCommand = ParseSingleCommand();
+            Accept(Endif); // added new
             return new IfCommandNode(expression, thenCommand, elseCommand, startPosition);
         }
 
