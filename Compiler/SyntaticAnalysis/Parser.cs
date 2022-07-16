@@ -135,7 +135,7 @@ namespace Compiler.SyntacticAnalysis
                     return ParseSkipCommand();
             }
         }
-        
+
         /// <summary>
         /// Parses a IfEither command
         /// </summary>

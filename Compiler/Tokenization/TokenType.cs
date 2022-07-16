@@ -50,7 +50,7 @@ namespace Compiler.Tokenization
             { "while", While },
             { "pass", Pass}, // added
             { "endif", Endif}, //added 
-            { "either", IfEither}, //added
+            { "ifeither", IfEither}, //added
             { "or", Or}, //added
             
             
