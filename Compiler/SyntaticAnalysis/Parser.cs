@@ -131,6 +131,7 @@ namespace Compiler.SyntacticAnalysis
                     return ParseWhileCommand();
                 case IfEither:
                     return ParseIfEitherCommand(); // added
+                case Pass:
                 default:
                     return ParseSkipCommand();
             }
@@ -194,8 +195,11 @@ namespace Compiler.SyntacticAnalysis
         {
             Debugger.Write("Parsing Skip Command");
             Position startPosition = CurrentToken.Position;
+            Accept(Pass);
             return new BlankCommandNode(startPosition);
         }
+
+
 
         /// <summary>
         /// Parses a while command

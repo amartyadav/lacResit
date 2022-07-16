@@ -159,6 +159,26 @@ namespace Compiler.SemanticAnalysis
                 // Error: expression needs to be a boolean
             }
         }
+        
+        /// <summary>
+        /// Carries out type checking on an if command node
+        /// </summary>
+        /// <param name="ifEitherCommand">The node to perform type checking on</param>
+        private void PerformTypeCheckingOnIfEitherCommand(IfEitherCommandNode ifEitherCommand)
+        {
+            PerformTypeChecking(ifEitherCommand.IfEitherExpression);
+            PerformTypeChecking(ifEitherCommand.OrExpression);
+            PerformTypeChecking(ifEitherCommand.ThenCommand);
+            PerformTypeChecking(ifEitherCommand.ElseCommand);
+            if (ifEitherCommand.IfEitherExpression.Type != StandardEnvironment.BooleanType)
+            {
+                // Error: expression needs to be a boolean
+            }
+            if (ifEitherCommand.OrExpression.Type != StandardEnvironment.BooleanType)
+            {
+                // Error: expression needs to be a boolean
+            }
+        }
 
         /// <summary>
         /// Carries out type checking on a let command node
