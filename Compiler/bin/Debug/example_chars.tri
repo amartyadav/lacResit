@@ -7,7 +7,7 @@ in
 		put('e'); put('n'); put('t'); put('e'); put('r'); put(' ');
 		put('n'); put('u'); put('m'); put('b'); put('e'); put('r'); put(':');
 		getint(var n);
-		if n > 0 then
+		ifeither n > 0 or n < 8 then
 			if n < max then
 				while n > 0 do
 					{
