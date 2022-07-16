@@ -1,4 +1,4 @@
-!this is an example program
+!this is an example error program
 let
 	const MAX ~ 10;
 	var n: Integer

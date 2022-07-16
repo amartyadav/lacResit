@@ -1,4 +1,5 @@
 !this is an example program
+pass;
 let
 	const max ~ 10;
 	var n: integer
@@ -15,5 +16,7 @@ in
 						n := n-1
 					}
 			else
+			endif
 		else
+		endif
 	}
