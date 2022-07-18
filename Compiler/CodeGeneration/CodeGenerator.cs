@@ -128,6 +128,32 @@ namespace Compiler.CodeGeneration
             GenerateCodeFor(callCommand.Parameter);
             GenerateCodeFor(callCommand.Identifier);
         }
+        
+        /// <summary>
+        /// Generates code for an ifEither command node
+        /// </summary>
+        /// <param name="ifEitherCommand">The node to generate code for</param>
+        private void GenerateCodeForIfEitherCommand(IfEitherCommandNode ifEitherCommand)
+        {
+            Debugger.Write("Generating code for IfEither Command");
+
+            GenerateCodeFor(ifEitherCommand.IfEitherExpression);
+            Address ifEitherJumpAddress = code.NextAddress;
+            code.AddInstruction(OpCode.JUMPIF, Register.CB, FalseValue, 0);
+            
+            GenerateCodeFor(ifEitherCommand.OrExpression);
+            Address orJumpAddress = code.NextAddress;
+            code.AddInstruction(OpCode.JUMPIF, Register.CB, FalseValue, 0);
+
+            GenerateCodeFor(ifEitherCommand.ThenCommand);
+            Address thenJumpAddress = code.NextAddress;
+            code.AddInstruction(OpCode.JUMP, Register.CB, 0, 0);
+            
+            code.PatchInstructionToJumpHere(ifEitherJumpAddress);
+            code.PatchInstructionToJumpHere(orJumpAddress);
+            GenerateCodeFor(ifEitherCommand.ElseCommand);
+            code.PatchInstructionToJumpHere(thenJumpAddress);
+        }
 
         /// <summary>
         /// Generates code for an if command node
@@ -147,33 +173,7 @@ namespace Compiler.CodeGeneration
             code.PatchInstructionToJumpHere(thenJumpAddress);
         }
         
-        /// <summary>
-        /// Generates code for an ifEither command node
-        /// </summary>
-        /// <param name="ifEitherCommand">The node to generate code for</param>
-        private void GenerateCodeForIfEitherCommand(IfEitherCommandNode ifEitherCommand)
-        {
-            Debugger.Write("Generating code for IfEither Command");
-            
-            // if expression
-            GenerateCodeFor(ifEitherCommand.IfEitherExpression);
-            Address ifEitherJumpAddress = code.NextAddress;
-            code.AddInstruction(OpCode.JUMPIF, Register.CB, FalseValue, 0);
-            
-            // or expression
-            GenerateCodeFor(ifEitherCommand.OrExpression);
-            // Address orJumpAddress = code.NextAddress; // dont need a new address here probably
-            code.AddInstruction(OpCode.JUMPIF, Register.CB, FalseValue, 0);
-            
-            // then command
-            GenerateCodeFor(ifEitherCommand.ThenCommand);
-            Address thenJumpAddress = code.NextAddress;
-            code.AddInstruction(OpCode.JUMP, Register.CB, 0, 0);
-            
-            code.PatchInstructionToJumpHere(ifEitherJumpAddress);
-            GenerateCodeFor(ifEitherCommand.ElseCommand);
-            code.PatchInstructionToJumpHere(thenJumpAddress);
-        }
+        
 
         /// <summary>
         /// Generates code for a let command node
