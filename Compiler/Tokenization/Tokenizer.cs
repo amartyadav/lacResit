@@ -13,7 +13,7 @@ namespace Compiler.Tokenization
         /// <summary>
         /// The error reporter
         /// </summary>
-        public ErrorReporter Reporter { get; }
+        public ErrorReporter Reporter { get; set; }
 
         /// <summary>
         /// The reader getting the characters from the file
@@ -76,7 +76,8 @@ namespace Compiler.Tokenization
             // Report an error if necessary
             if (tokenType == TokenType.Error)
             {
-                // Report the error here
+                String error = TokenSpelling.ToString() + " :AT: " + tokenStartPosition + "\nInvalid token.";
+                Reporter.AddError(error);
             }
 
             return token;

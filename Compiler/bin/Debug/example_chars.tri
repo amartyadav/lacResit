@@ -2,21 +2,22 @@
 pass;
 let
 	const max ~ 10;
-	var n: integer
+	var n: integer;
+	
 in
 	{
 		put('e'); put('n'); put('t'); put('e'); put('r'); put(' ');
 		put('n'); put('u'); put('m'); put('b'); put('e'); put('r'); put(':');
 		getint(var n);
-		ifeither n > 0 or n < 8 then
-			if n < max then
-				while n > 0 do
-					{
-						putint(n); puteol();
-						n := n-1
-					}
-			else
-			endif
+		ifeither n > 0 or n < max then			
+			while n > 0 do
+				{
+					putint(n); puteol();
+					n := n-1
+				}
 		else
+			{
+				put('h');put('a');put('h');put('a');put('h');put('a')
+			}
 		endif
 	}

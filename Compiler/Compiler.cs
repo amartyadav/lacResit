@@ -1,4 +1,5 @@
-﻿using Compiler.CodeGeneration;
+﻿using System;
+using Compiler.CodeGeneration;
 using Compiler.IO;
 using Compiler.Nodes;
 using Compiler.SemanticAnalysis;
@@ -6,6 +7,7 @@ using Compiler.SyntacticAnalysis;
 using Compiler.Tokenization;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using static System.Console;
 
 namespace Compiler
@@ -82,7 +84,7 @@ namespace Compiler
             Write("Tokenising...");
             List<Token> tokens = Tokenizer.GetAllTokens();
             if (Reporter.HasErrors) return;
-            WriteLine("Done");
+                WriteLine("Done");
 
             // Parse
             Write("Parsing...");
@@ -120,7 +122,22 @@ namespace Compiler
         /// </summary>
         private void WriteFinalMessage()
         {
+            List<String> errors;
             // You need to fill this in with your own success/error report
+            if (Reporter.HasErrors)
+            {
+                errors = Reporter.GetErrorList().Distinct().ToList(); // using Distinct() as parser stores duplicate entries for the same error
+                WriteLine("Could Not Compile Program. Errors Encountered.\n");
+                WriteLine("Total errors: " + errors.Count+"\n");
+                foreach (var error in errors)
+                {
+                    WriteLine(error+"\n");
+                }
+            }
+            else
+            {
+                WriteLine("Program compiled successfully");
+            }
         }
 
         /// <summary>

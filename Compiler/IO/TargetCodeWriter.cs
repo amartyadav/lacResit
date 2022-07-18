@@ -50,6 +50,7 @@ namespace Compiler.IO
             catch (Exception ex)
             {
                 // Error: Problem writing binary output file
+                Reporter.AddError("Problem writing the binary output file.");
             }
             try
             {
@@ -58,6 +59,7 @@ namespace Compiler.IO
             catch (Exception ex)
             {
                 // Error: Problem writing text output file
+                Reporter.AddError("Problem writing the text output file.");
             }
         }
     }

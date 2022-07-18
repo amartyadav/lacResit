@@ -174,6 +174,8 @@ namespace Compiler.SemanticAnalysis
         {
             Token token = constDeclaration.Identifier.IdentifierToken;
             bool success = SymbolTable.Enter(token.Spelling, constDeclaration);
+            if (!success)
+                Reporter.AddError("Const " + "'" + token.Spelling + "' is already declared. Check: " + token.Position);
             PerformIdentification(constDeclaration.Expression);
         }
 
@@ -193,9 +195,13 @@ namespace Compiler.SemanticAnalysis
         /// <param name="varDeclaration">The node to perform identification on</param>
         private void PerformIdentificationOnVarDeclaration(VarDeclarationNode varDeclaration)
         {
-            PerformIdentification(varDeclaration.TypeDenoter);
             Token token = varDeclaration.Identifier.IdentifierToken;
             bool success = SymbolTable.Enter(token.Spelling, varDeclaration);
+            if (!success)
+            {
+                Reporter.AddError("Var " + "'" + token.Spelling + "' is already declared. Check: " + token.Position);
+            }
+            PerformIdentification(varDeclaration.TypeDenoter);
         }
 
 
@@ -304,6 +310,8 @@ namespace Compiler.SemanticAnalysis
         private void PerformIdentificationOnIdentifier(IdentifierNode identifier)
         {
             IDeclarationNode declaration = SymbolTable.Retrieve(identifier.IdentifierToken.Spelling);
+            if(declaration == null)
+                Reporter.AddError("Identifier '" + identifier.IdentifierToken.Spelling + "' not declared. Check: " + identifier.Position);
             identifier.Declaration = declaration;
         }
 
@@ -322,6 +330,8 @@ namespace Compiler.SemanticAnalysis
         private void PerformIdentificationOnOperator(OperatorNode operation)
         {
             IDeclarationNode declaration = SymbolTable.Retrieve(operation.OperatorToken.Spelling);
+            if(declaration == null)
+                Reporter.AddError("Operation '" + operation.OperatorToken.Spelling + "' not declared. Check: " + operation.Position);
             operation.Declaration = declaration;
         }
     }

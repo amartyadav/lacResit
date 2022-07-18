@@ -1,4 +1,5 @@
-﻿using Compiler.IO;
+﻿using System;
+using Compiler.IO;
 using Compiler.Nodes;
 using Compiler.Tokenization;
 using System.Collections.Generic;
@@ -58,6 +59,12 @@ namespace Compiler.SyntacticAnalysis
             if (CurrentToken.Type == expectedType)
             {
                 Debugger.Write($"Accepted {CurrentToken}");
+                MoveNext();
+            }
+            else
+            {
+                String error = "Unexpected Token Type -> " + CurrentToken.Spelling + " -> AT " + CurrentToken.Position;
+                Reporter.AddError(error);
                 MoveNext();
             }
         }

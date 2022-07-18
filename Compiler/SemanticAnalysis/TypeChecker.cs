@@ -81,10 +81,12 @@ namespace Compiler.SemanticAnalysis
             if (!(assignCommand.Identifier.Declaration is IVariableDeclarationNode varDeclaration))
             {
                 // Error - identifier is not a variable
+                Reporter.AddError("Identifier ' " + assignCommand.Identifier.IdentifierToken+ "' is not a variable. Check: " + assignCommand.Identifier.Position);
             }
             else if (varDeclaration.EntityType != assignCommand.Expression.Type)
             {
                 // Error - expression is wrong type for the variable
+                Reporter.AddError("Expression is of the incorrect type for the variable. Check: " + assignCommand.Expression.Position);
             }
         }
 
@@ -107,12 +109,14 @@ namespace Compiler.SemanticAnalysis
             if (!(callCommand.Identifier.Declaration is FunctionDeclarationNode functionDeclaration))
             {
                 // Error: Identifier is not a function
+                Reporter.AddError("Identifier '" + callCommand.Identifier.IdentifierToken +" is not a function. Check: " + callCommand.Identifier.Position);
             }
             else if (GetNumberOfArguments(functionDeclaration.Type) == 0)
             {
                 if (!(callCommand.Parameter is BlankParameterNode))
                 {
                     // Error: function takes no arguments but is called with one
+                    Reporter.AddError("Function takes no arguments but is called with one. Check: " + callCommand.Parameter.Position);
                 }
             }
             else
@@ -120,18 +124,21 @@ namespace Compiler.SemanticAnalysis
                 if (callCommand.Parameter is BlankParameterNode)
                 {
                     // Error: function takes an argument but is called without one
+                    Reporter.AddError("Function takes an arguments but is called without one. Check: " + callCommand.Parameter.Position);
                 }
                 else
                 {
                     if (GetArgumentType(functionDeclaration.Type, 0) != callCommand.Parameter.Type)
                     {
                         // Error: Function called with parameter of the wrong type
+                        Reporter.AddError("Function called with parameter of the wrong type. Check: " + callCommand.Parameter.Position);
                     }
                     if (ArgumentPassedByReference(functionDeclaration.Type, 0))
                     {
                         if (!(callCommand.Parameter is VarParameterNode))
                         {
                             // Error: Function requires a var parameter but has been given an expression parameter
+                            Reporter.AddError("Function requires a var parameter but has been given an expression parameter. Check: " + callCommand.Parameter.Position);
                         }
                     }
                     else
@@ -139,6 +146,7 @@ namespace Compiler.SemanticAnalysis
                         if (!(callCommand.Parameter is ExpressionParameterNode))
                         {
                             // Error: Function requires an expression parameter but has been given a var parameter
+                            Reporter.AddError("Function requires an expression parameter but has been given a var parameter. Check: " + callCommand.Parameter.Position);
                         }
                     }
                 }
@@ -157,6 +165,7 @@ namespace Compiler.SemanticAnalysis
             if (ifCommand.Expression.Type != StandardEnvironment.BooleanType)
             {
                 // Error: expression needs to be a boolean
+                Reporter.AddError("Expression needs to be a boolean. Check: " + ifCommand.Expression.Position);
             }
         }
         
@@ -173,10 +182,12 @@ namespace Compiler.SemanticAnalysis
             if (ifEitherCommand.IfEitherExpression.Type != StandardEnvironment.BooleanType)
             {
                 // Error: expression needs to be a boolean
+                Reporter.AddError("Expression needs to be a boolean. Check: " + ifEitherCommand.IfEitherExpression.Position);
             }
             if (ifEitherCommand.OrExpression.Type != StandardEnvironment.BooleanType)
             {
                 // Error: expression needs to be a boolean
+                Reporter.AddError("Expression needs to be a boolean. Check: " + ifEitherCommand.OrExpression.Position);
             }
         }
 
@@ -211,6 +222,7 @@ namespace Compiler.SemanticAnalysis
             if (whileCommand.Expression.Type != StandardEnvironment.BooleanType)
             {
                 // Error: expression needs to be a boolean
+                Reporter.AddError("Expression needs to be a boolean. Check: " + whileCommand.Expression.Position);
             }
         }
 
@@ -260,6 +272,7 @@ namespace Compiler.SemanticAnalysis
             if (!(binaryExpression.Op.Declaration is BinaryOperationDeclarationNode opDeclaration))
             {
                 // Error: operator is not a binary operator
+                Reporter.AddError("Operator is not a binary operator. Check: " + binaryExpression.Op.Position);
             }
             else
             {
@@ -268,6 +281,7 @@ namespace Compiler.SemanticAnalysis
                     if (binaryExpression.LeftExpression.Type != binaryExpression.RightExpression.Type)
                     {
                         // Error: left and right hand side arguments not the same type
+                        Reporter.AddError("left and right hand side arguments not the same type. Check: " + binaryExpression.LeftExpression.Position);
                     }
                 }
                 else
@@ -275,10 +289,12 @@ namespace Compiler.SemanticAnalysis
                     if (GetArgumentType(opDeclaration.Type, 0) != binaryExpression.LeftExpression.Type)
                     {
                         // Error: Left hand expression is wrong type
+                        Reporter.AddError("Left hand expression is wrong type. Check: " + binaryExpression.LeftExpression.Position);
                     }
                     if (GetArgumentType(opDeclaration.Type, 1) != binaryExpression.RightExpression.Type)
                     {
                         // Error: Right hand expression is wrong type
+                        Reporter.AddError("Right hand expression is wrong type. Check: " + binaryExpression.RightExpression.Position);
                     }
                 }
                 binaryExpression.Type = GetReturnType(opDeclaration.Type);
@@ -305,6 +321,7 @@ namespace Compiler.SemanticAnalysis
             if (!(idExpression.Identifier.Declaration is IEntityDeclarationNode declaration))
             {
                 // Error: identifier is not a variable or constant
+                Reporter.AddError("Identifier is not a variable or constant. Check: " + idExpression.Identifier.Position);
             }
             else
                 idExpression.Type = declaration.EntityType;
@@ -331,12 +348,14 @@ namespace Compiler.SemanticAnalysis
             if (!(unaryExpression.Op.Declaration is UnaryOperationDeclarationNode opDeclaration))
             {
                 // Error: operator is not a unary operator
+                Reporter.AddError("Operator is not a unary operator. Check: " + unaryExpression.Op.Position);
             }
             else
             {
                 if (GetArgumentType(opDeclaration.Type, 0) != unaryExpression.Expression.Type)
                 {
                     // Error: expression is the wrong type
+                    Reporter.AddError("Expression is the wrong type. Check: " + unaryExpression.Expression.Position);
                 }
                 unaryExpression.Type = GetReturnType(opDeclaration.Type);
             }
@@ -372,6 +391,7 @@ namespace Compiler.SemanticAnalysis
             if (!(varParameter.Identifier.Declaration is IVariableDeclarationNode varDeclaration))
             {
                 // Error: identifier is not a variable
+                Reporter.AddError("Identifier '"+varParameter.Identifier.IdentifierToken+"' is not a variable. Check: " + varParameter.Identifier.Position);
             }
             else
                 varParameter.Type = varDeclaration.EntityType;
@@ -389,6 +409,7 @@ namespace Compiler.SemanticAnalysis
             if (!(typeDenoter.Identifier.Declaration is SimpleTypeDeclarationNode declaration))
             {
                 // Error: identifier is not a type
+                Reporter.AddError("Identifier '"+typeDenoter.Identifier.Position+"' is not a type. Check: " + typeDenoter.Identifier.Position);
             }
             else
                 typeDenoter.Type = declaration;
@@ -404,7 +425,9 @@ namespace Compiler.SemanticAnalysis
         {
             if (characterLiteral.Value < short.MinValue || characterLiteral.Value > short.MaxValue)
             {
-                // Error - value too big         
+                // Error - value too big
+                Reporter.AddError("Value of Character Literal '" + characterLiteral.Value + " is too large. Check: " + characterLiteral.Position);
+                Reporter.AddError("Value of Character Literal '" + characterLiteral.CharacterLiteralToken + " is too large. Check: " + characterLiteral.Position);
             }
         }
 
@@ -414,6 +437,7 @@ namespace Compiler.SemanticAnalysis
         /// <param name="identifier">The node to perform type checking on</param>
         private void PerformTypeCheckingOnIdentifier(IdentifierNode identifier)
         {
+            
         }
 
         /// <summary>
@@ -425,6 +449,8 @@ namespace Compiler.SemanticAnalysis
             if (integerLiteral.Value < short.MinValue || integerLiteral.Value > short.MaxValue)
             {
                 // Error - value too big
+                Reporter.AddError("Value of Integer Literal '" + integerLiteral.Value + " is too large. Check: " + integerLiteral.Position);
+                Reporter.AddError("Value of Integer Literal '" + integerLiteral.IntegerLiteralToken + " is too large. Check: " + integerLiteral.Position);
             }
         }
 
